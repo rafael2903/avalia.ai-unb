@@ -4,10 +4,10 @@ import { Pool } from 'pg';
 const dbProvider = {
   provide: 'PG_CONNECTION',
   useValue: new Pool({
-    user: 'postgres',
+    user: process.env.DB_USER,
     host: process.env.DB_HOST,
-    database: 'avalia_ai',
-    password: 'postgres',
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
     port: parseInt(process.env.DB_PORT),
   }),
 };
