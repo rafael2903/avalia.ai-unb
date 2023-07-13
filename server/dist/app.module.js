@@ -31,8 +31,8 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
             db_module_1.DBModule,
-            config_1.ConfigModule.forRoot(),
             users_module_1.UsersModule,
             teachers_module_1.TeachersModule,
             departments_module_1.DepartmentsModule,

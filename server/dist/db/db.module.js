@@ -12,11 +12,11 @@ const pg_1 = require("pg");
 const dbProvider = {
     provide: 'PG_CONNECTION',
     useValue: new pg_1.Pool({
-        user: 'postgres',
-        host: process.env.DB_HOST,
-        database: 'avalia_ai',
-        password: 'postgres',
-        port: parseInt(process.env.DB_PORT),
+        user: process.env.PGUSER,
+        host: process.env.PGHOST,
+        database: process.env.PGDATABASE,
+        password: process.env.PGPASSWORD,
+        port: parseInt(process.env.PGPORT),
     }),
 };
 let DBModule = class DBModule {

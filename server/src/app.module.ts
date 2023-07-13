@@ -17,8 +17,8 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     DBModule,
-    ConfigModule.forRoot(),
     UsersModule,
     TeachersModule,
     DepartmentsModule,
