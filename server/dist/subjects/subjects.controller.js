@@ -28,14 +28,14 @@ let SubjectsController = class SubjectsController {
     findAll(query) {
         return this.subjectsService.findAll(query);
     }
-    findOne(id) {
-        return this.subjectsService.findOne(+id);
+    findOne(code) {
+        return this.subjectsService.findOne(code);
     }
-    update(id, updateSubjectDto) {
-        return this.subjectsService.update(+id, updateSubjectDto);
+    update(code, updateSubjectDto) {
+        return this.subjectsService.update(code, updateSubjectDto);
     }
-    remove(id) {
-        return this.subjectsService.remove(+id);
+    remove(code) {
+        return this.subjectsService.remove(code);
     }
 };
 __decorate([
@@ -53,23 +53,23 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], SubjectsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(':code'),
+    __param(0, (0, common_1.Param)('code')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], SubjectsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(':code'),
+    __param(0, (0, common_1.Param)('code')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_subject_dto_1.UpdateSubjectDto]),
     __metadata("design:returntype", void 0)
 ], SubjectsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(':code'),
+    __param(0, (0, common_1.Param)('code')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

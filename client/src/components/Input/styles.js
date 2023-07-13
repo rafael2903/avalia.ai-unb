@@ -12,6 +12,16 @@ export const Container = styled.div`
         color: ${({ theme }) => theme.colors.text};
     }
 
+    label {
+        display: block;
+        text-align: left;
+        margin-bottom: 0.8rem;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: ${({ theme }) => theme.colors.text};
+
+    }
+
     ::placeholder, :disabled {
         color: ${({ theme }) => theme.colors.textLight};
     }

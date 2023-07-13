@@ -5,9 +5,11 @@ import { SubjectsService } from './subjects.service';
 export declare class SubjectsController {
     private readonly subjectsService;
     constructor(subjectsService: SubjectsService);
-    create(createSubjectDto: CreateSubjectDto): string;
+    create(createSubjectDto: CreateSubjectDto): Promise<any>;
     findAll(query: QueryDto): Promise<any[]>;
-    findOne(id: string): Promise<import("pg").QueryResult<any>>;
-    update(id: string, updateSubjectDto: UpdateSubjectDto): string;
-    remove(id: string): string;
+    findOne(code: string): Promise<any>;
+    update(code: string, updateSubjectDto: UpdateSubjectDto): Promise<any>;
+    remove(code: string): {
+        message: string;
+    };
 }

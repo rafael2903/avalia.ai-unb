@@ -4,7 +4,7 @@ import { useUser } from 'hooks/useUser'
 import { useEffect, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import api from 'services/api'
+import { api } from 'services/api'
 import { notyf } from 'services/notyf'
 import { Container, Title } from './styles'
 
@@ -89,17 +89,18 @@ export const ProfilePage = () => {
                     register={register}
                     type='password'
                     name='password'
+                    placeholder='Deixe em branco para não alterar'
                 />
                 <Button value='Alterar dados' isLoading={isLoading} />
             </form>
-                <Button
-                    as='button'
-                    isLoading={isLoading}
-                    onClick={handleDelete}
-                    destructive
-                >
-                    Apagar conta
-                </Button>
+            <Button
+                as='button'
+                isLoading={isLoading}
+                onClick={handleDelete}
+                destructive
+            >
+                Apagar conta
+            </Button>
         </Container>
     )
 }

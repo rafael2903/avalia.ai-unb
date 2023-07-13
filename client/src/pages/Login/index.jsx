@@ -3,10 +3,10 @@ import { Input } from 'components/Input'
 import { useUser } from 'hooks/useUser'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import api from 'services/api'
-import { Container, Title } from './styles'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+import { api } from 'services/api'
 import { notyf } from 'services/notyf'
+import { Container, Title } from './styles'
 
 export const LoginPage = () => {
     const { register, handleSubmit } = useForm()
@@ -34,13 +34,20 @@ export const LoginPage = () => {
         <Container>
             <Title>Entrar na conta</Title>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Input label='Matrícula UnB' register={register} required name="id"/>
+                <Input
+                    label='Matrícula UnB'
+                    register={register}
+                    required
+                    name='id'
+                    placeholder='Somente números'
+                />
                 <Input
                     label='Senha'
                     register={register}
                     required
                     type='password'
-                    name="password"
+                    name='password'
+                    placeholder='Digite a senha'
                 />
                 <Button value='Entrar' isLoading={isLoading} />
             </form>

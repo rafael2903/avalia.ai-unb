@@ -22,20 +22,45 @@ let TeachersService = class TeachersService {
         this.queryAdder = queryAdder;
     }
     create(createTeacherDto) {
-        return 'This action adds a new teacher';
+        const { id, name, department_code } = createTeacherDto;
+        const query = `
+      INSERT INTO "Teacher" (id, name, department_code)
+      VALUES ($1, $2, $3)
+      RETURNING *
+    `;
+        const values = [id, name, department_code];
+        return this.conn.query(query, values).then((res) => res.rows[0]);
     }
     async findAll(params) {
-        const [query, values] = this.queryAdder.addQueryParams('SELECT * FROM "Teacher"', params);
+        const [query, values] = this.queryAdder.addQueryParams('SELECT * FROM "TeacherView"', params);
         return (await this.conn.query(query, values)).rows;
     }
-    findOne(id) {
-        return this.conn.query('SELECT * FROM "Teacher" WHERE id = $1', [id]);
+    async findOne(id) {
+        const teacher = await this.conn
+            .query('SELECT * FROM "Teacher" WHERE id = $1', [id])
+            .then((res) => res.rows[0]);
+        const subjectsQuery = `
+      SELECT name, code
+      FROM "Subject"
+      LEFT JOIN "Class"
+      ON "Subject".code = "Class".subject_code
+      WHERE "Class".teacher_id = $1;`;
+        const { rows: subjects } = await this.conn.query(subjectsQuery, [id]);
+        return Object.assign(Object.assign({}, teacher), { subjects });
     }
     update(id, updateTeacherDto) {
-        return `This action updates a #${id} teacher`;
+        const { id: newId, name, department_code } = updateTeacherDto;
+        const query = `
+      UPDATE "Teacher"
+      SET id = $1, name = $2, department_code = $3
+      WHERE id = $4
+      RETURNING *
+    `;
+        const values = [newId, name, department_code, id];
+        return this.conn.query(query, values).then((res) => res.rows[0]);
     }
     remove(id) {
-        return `This action removes a #${id} teacher`;
+        return this.conn.query('DELETE FROM "Teacher" WHERE id = $1', [id]);
     }
 };
 TeachersService = __decorate([

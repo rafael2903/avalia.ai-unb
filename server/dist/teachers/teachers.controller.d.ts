@@ -5,9 +5,9 @@ import { QueryDto } from 'src/query-adder/query.dto';
 export declare class TeachersController {
     private readonly teachersService;
     constructor(teachersService: TeachersService);
-    create(createTeacherDto: CreateTeacherDto): string;
+    create(createTeacherDto: CreateTeacherDto): Promise<any>;
     findAll(query: QueryDto): Promise<any[]>;
-    findOne(id: string): Promise<import("pg").QueryResult<any>>;
-    update(id: string, updateTeacherDto: UpdateTeacherDto): string;
-    remove(id: string): string;
+    findOne(id: string): Promise<any>;
+    update(id: string, updateTeacherDto: UpdateTeacherDto): Promise<any>;
+    remove(id: string): Promise<import("pg").QueryResult<any>>;
 }

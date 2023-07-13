@@ -73,22 +73,34 @@ CREATE TABLE "Authentication" (
   "user_id" char(9) NOT NULL
 );
 
-ALTER TABLE "Comment" ADD FOREIGN KEY ("user_id") REFERENCES "User" ("id");
+ALTER TABLE "Comment" ADD FOREIGN KEY ("user_id") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE "Report" ADD FOREIGN KEY ("comment_id") REFERENCES "Comment" ("id");
+ALTER TABLE "Report" ADD FOREIGN KEY ("comment_id") REFERENCES "Comment" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE "Report" ADD FOREIGN KEY ("user_id") REFERENCES "User" ("id");
+ALTER TABLE "Report" ADD FOREIGN KEY ("user_id") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE "Comment" ADD FOREIGN KEY ("class_id") REFERENCES "Class" ("id");
+ALTER TABLE "Comment" ADD FOREIGN KEY ("class_id") REFERENCES "Class" ("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE "Subject" ADD FOREIGN KEY ("department_code") REFERENCES "Department" ("code");
+ALTER TABLE "Subject" ADD FOREIGN KEY ("department_code") REFERENCES "Department" ("code") ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE "Teacher" ADD FOREIGN KEY ("department_code") REFERENCES "Department" ("code");
+ALTER TABLE "Teacher" ADD FOREIGN KEY ("department_code") REFERENCES "Department" ("code") ON DELETE CASCADE ON UPDATE CASCADE;
 
-ALTER TABLE "Class" ADD FOREIGN KEY ("teacher_id") REFERENCES "Teacher" ("id");
+ALTER TABLE "Class" ADD FOREIGN KEY ("teacher_id") REFERENCES "Teacher" ("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE "Class" ADD FOREIGN KEY ("subject_code") REFERENCES "Subject" ("code");
+ALTER TABLE "Class" ADD FOREIGN KEY ("subject_code") REFERENCES "Subject" ("code") ON DELETE CASCADE ON UPDATE CASCADE;
 
+
+CREATE OR REPLACE VIEW "SubjectView" AS
+SELECT s.code, s.name, d.name AS department_name
+FROM "Subject" AS s
+LEFT JOIN "Department" AS d
+ON s.department_code = d.code;
+
+CREATE OR REPLACE VIEW "TeacherView" AS
+SELECT id, t.name, d.name AS department_name
+FROM "Teacher" AS t
+LEFT JOIN "Department" AS d
+ON t.department_code = d.code;
 
 CALL InsertFromCSV(data_path || 'departamentos.csv', 'Department');
 CALL InsertFromCSV(data_path || 'disciplinas.csv', 'Subject');

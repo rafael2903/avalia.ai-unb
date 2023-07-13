@@ -27,6 +27,6 @@ export const theme = {
     },
     shadows: {
         primary: '0 0 0.5rem #008B4388',
-        secondary: '0 0 0.5rem #00427D44',
+        secondary: '0 0 0.5rem #00427D88',
     },
 }

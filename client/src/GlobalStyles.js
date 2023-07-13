@@ -28,7 +28,7 @@ export const GlobalStyle = createGlobalStyle`
         text-decoration: none;
         list-style: none;
         background: transparent;
-        color: inherit;
+        /* color: inherit; */
         line-height: inherit;
         -webkit-tap-highlight-color: transparent;
         -webkit-touch-callout: none;
@@ -36,6 +36,9 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         -webkit-text-size-adjust: 100%;
+
+        transition: filter 0.2s ease-in-out;
+        transition: box-shadow 0.2s ease-in-out;
     }
 
     #root {
@@ -49,6 +52,7 @@ export const GlobalStyle = createGlobalStyle`
     a {
         font-weight: 500;
         text-decoration: inherit;
+        color: ${props => props.theme.colors.primary};
     }
 
     html {
@@ -68,10 +72,6 @@ export const GlobalStyle = createGlobalStyle`
     h1 {
         font-size: 3.2em;
         line-height: 1.1;
-    }
-
-    a {
-        transition: all 0.2s ease-in-out;
     }
 
     button, input[type="submit"] {

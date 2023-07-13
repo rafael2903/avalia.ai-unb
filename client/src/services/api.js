@@ -1,9 +1,13 @@
 import axios from 'axios'
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: 'http://localhost:3000',
 })
 
 
-
-export default api
+export const fetcher = ({ url, params }) => api.get(url, {
+  params: {
+    pageSize: 4,
+    ...params
+  }
+}).then(res => res.data)

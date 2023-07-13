@@ -1,7 +1,7 @@
 import { useUser } from 'hooks/useUser.js'
 import { useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
-import api from 'services/api.js'
+import { api } from 'services/api.js'
 import { router } from './routes.jsx'
 
 export const App = () => {

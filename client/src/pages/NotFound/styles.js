@@ -8,8 +8,9 @@ export const Container = styled.div`
     padding: 0 2rem;
     text-align: center;
 
-    button {
+    a {
         margin-top: 2rem;
+        display: inline-block;
         text-decoration: underline;
         color: ${({ theme }) => theme.colors.primary};
     }
@@ -17,7 +18,7 @@ export const Container = styled.div`
 
 export const Title = styled.h1`
 
-    font-size: 4rem;
+    font-size: 7rem;
     line-height: 1.3;
     font-weight: bold;
     width: 100%;
@@ -26,7 +27,7 @@ export const Title = styled.h1`
 `
 
 export const Subtitle = styled.h2`
-    font-size: 2rem;
+    font-size: 2.5rem;
     line-height: 1.3;
     font-weight: normal;
     width: 100%;

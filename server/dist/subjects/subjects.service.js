@@ -14,28 +14,54 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubjectsService = void 0;
 const common_1 = require("@nestjs/common");
-const query_params_service_1 = require("../query-adder/query-params.service");
 const pg_1 = require("pg");
+const query_params_service_1 = require("../query-adder/query-params.service");
 let SubjectsService = class SubjectsService {
     constructor(conn, queryAdder) {
         this.conn = conn;
         this.queryAdder = queryAdder;
     }
     create(createSubjectDto) {
-        return 'This action adds a new subject';
+        const { code, name, department_code } = createSubjectDto;
+        const query = `
+      INSERT INTO "Subject" (code, name, department_code)
+      VALUES ($1, $2, $3)
+      RETURNING *
+    `;
+        const values = [code, name, department_code];
+        return this.conn.query(query, values).then((res) => res.rows[0]);
     }
     async findAll(params) {
-        const [query, values] = this.queryAdder.addQueryParams('SELECT * FROM "Subject"', params);
+        const [query, values] = this.queryAdder.addQueryParams('SELECT * FROM "SubjectView"', params);
         return (await this.conn.query(query, values)).rows;
     }
-    findOne(id) {
-        return this.conn.query('SELECT * FROM "Subject" WHERE id = $1', [id]);
+    async findOne(code) {
+        const subject = await this.conn
+            .query('SELECT * FROM "Subject" WHERE code = $1', [code])
+            .then((res) => res.rows[0]);
+        const teachersQuery = `
+      SELECT name, "Teacher".id
+      FROM "Teacher"
+      LEFT JOIN "Class"
+      ON "Teacher".id = "Class".teacher_id
+      WHERE "Class".subject_code = $1;`;
+        const { rows: teachers } = await this.conn.query(teachersQuery, [code]);
+        return Object.assign(Object.assign({}, subject), { teachers });
     }
-    update(id, updateSubjectDto) {
-        return `This action updates a #${id} subject`;
+    update(code, updateSubjectDto) {
+        const { code: newCode, name, department_code } = updateSubjectDto;
+        const query = `
+      UPDATE "Subject"
+      SET code = $1, name = $2, department_code = $3
+      WHERE code = $4
+      RETURNING *
+    `;
+        const values = [newCode, name, department_code, code];
+        return this.conn.query(query, values).then((res) => res.rows[0]);
     }
-    remove(id) {
-        return `This action removes a #${id} subject`;
+    remove(code) {
+        this.conn.query('DELETE FROM "Subject" WHERE code = $1', [code]);
+        return { message: `Subject ${code} deleted` };
     }
 };
 SubjectsService = __decorate([

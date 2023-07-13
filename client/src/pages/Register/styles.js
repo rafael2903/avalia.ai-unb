@@ -25,8 +25,8 @@ export const Container = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
-        margin-top: 4rem;
+        gap: 1.6rem;
+        margin: 4rem 0;
     }
 `
 export const Title = styled.h1`

@@ -27,18 +27,21 @@ export class SubjectsController {
     return this.subjectsService.findAll(query);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.subjectsService.findOne(+id);
+  @Get(':code')
+  findOne(@Param('code') code: string) {
+    return this.subjectsService.findOne(code);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSubjectDto: UpdateSubjectDto) {
-    return this.subjectsService.update(+id, updateSubjectDto);
+  @Patch(':code')
+  update(
+    @Param('code') code: string,
+    @Body() updateSubjectDto: UpdateSubjectDto,
+  ) {
+    return this.subjectsService.update(code, updateSubjectDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.subjectsService.remove(+id);
+  @Delete(':code')
+  remove(@Param('code') code: string) {
+    return this.subjectsService.remove(code);
   }
 }

@@ -23,7 +23,7 @@ export const Header = () => {
 
                 <AccountContainer>
                     {user && user.is_admin && (
-                        <Link to='/admin'>Administração</Link>
+                        <Link to='/usuarios'>Administração</Link>
                     )}
                     {user ? (
                         <>
